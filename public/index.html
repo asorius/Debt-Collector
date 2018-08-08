@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="./assets/style.css">
+    <title>Debt Collector</title>
+</head>
+<body>
+    <div class="container">
+            <div class="form form_create">
+                    <form action="./data.html" class="create">
+                        <label for="collection_name">Collection Name:</label>
+                        <input type="text" id="collection_name">
+                        <label for="collection_pass">Collection Password:</label>
+                        <input type="password" name="collection_pass" id="collection_pass">
+                        <label for="collection_pass__admin">Collection Admins Password:</label>
+                        <input type="password" name="collection_pass__admin" id="collection_pass__admin">
+                        <button>Create Collection</button>
+                    </form>
+                </div>
+        <!-- <div class="form form_user">
+            <form action="/data.html" class="login">
+                <label for="collection_name">Collection Name:</label>
+                <input type="text" id="collection_name">
+                <label for="collection_pass">Password:</label>
+                <input type="password" name="collection_pass" id="collection_pass">
+                <button>Connect to Collection</button>
+            </form>
+        </div> -->
+        <!-- <div class="form form_admin">
+            <button id='adminBtn'>Admin Login</button>
+            <form action="/data.html" class="login login_admin hidden">
+                <label for="collection_name">Collection Name:</label>
+                <input type="text" id="collection_name__admin">
+                <label for="collection_pass__admin">Admin Password:</label>
+                <input type="password" name="collection_pass__admin" id="collection_pass__admin">
+                <button>Connect as Admin</button>
+            </form>
+        </div> -->
+    </div>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="./js/index.js"></script>
+</body>
+</html>

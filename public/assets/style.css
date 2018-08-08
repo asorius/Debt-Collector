@@ -1,0 +1,9 @@
+.hidden{
+    display: none;
+}
+form{
+    display: flex;
+    flex-direction: column;
+    margin:0 auto;
+    padding:2rem
+}
