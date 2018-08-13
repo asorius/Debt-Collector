@@ -9,7 +9,7 @@
 </head>
 <body>
     <div class="container">
-            <div class="form form_create">
+            <!-- <div class="form form_create">
                     <form action="./data.html" class="create">
                         <label for="collection_name">Collection Name:</label>
                         <input type="text" id="collection_name">
@@ -18,8 +18,11 @@
                         <label for="collection_pass__admin">Collection Admins Password:</label>
                         <input type="password" name="collection_pass__admin" id="collection_pass__admin">
                         <button>Create Collection</button>
-                    </form>
-                </div>
+                    </form> -->
+                <!-- </div> -->
+        <button class='new'>createnew</button>
+        <button class='login'>login to existing one</button>
+
         <!-- <div class="form form_user">
             <form action="/data.html" class="login">
                 <label for="collection_name">Collection Name:</label>
@@ -40,7 +43,29 @@
             </form>
         </div> -->
     </div>
+    <script id='collection_template' type='text/template'>
+        <div class="form form_create">
+            <form action="" class="create">
+                <label for="collection_name">Collection Name:</label>
+                <input type="text" id="collection_name">
+                <label for="collection_pass">Collection Password:</label>
+                <input type="password" name="collection_pass" id="collection_pass">
+                <label for="collection_pass__admin">Collection Admins Password:</label>
+                <input type="password" name="collection_pass__admin" id="collection_pass__admin">
+                <button class='createBtn'>Create Collection</button>
+            </form>
+        </div>
+    </script>
+    <script id='data_template' type='text/template'>
+        <div class='data_template__container'>
+            <h1>{{text}}'s collection</h1>
+            <div class="main_data">
+
+            </div>
+        </div>
+    </script>
     <script src="/socket.io/socket.io.js"></script>
+    <script src="./assets/mustache.js"></script>
     <script src="./js/index.js"></script>
 </body>
 </html>

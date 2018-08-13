@@ -17,10 +17,11 @@ const io=socketIO(server)
 app.use(express.static(publicPath))
 app.use(bodyParser.json())
 
+
 //socket refers to individual user currently connected to the server
 io.on('connection',(socket)=>{
-    socket.on('createNew',async (data)=>{
-        console.log(data.cName, data.cPass, data.cAdminPass)
+    socket.on('display',(data)=>{
+        socket.emit('showData',data.name)
     })
 })
 
