@@ -47,7 +47,7 @@
         <div class="form form_create">
             <form action="" class="create">
                 <label for="collection_name">Collection Name:</label>
-                <input type="text" id="collection_name">
+                <input type="text" id="collection_name" autofocus autocomplete='off'>
                 <label for="collection_pass">Collection Password:</label>
                 <input type="password" name="collection_pass" id="collection_pass">
                 <label for="collection_pass__admin">Collection Admins Password:</label>
@@ -58,10 +58,25 @@
     </script>
     <script id='data_template' type='text/template'>
         <div class='data_template__container'>
-            <h1>{{text}}'s collection</h1>
+            <h1>{{name}}'s collection</h1>
             <div class="main_data">
-
+                <div class="main_data__single">
+                    <input type="text" placeholder='enter digits plus means add minus means substract' autofocus autocomplete='off'>
+                    <input type="text" placeholder='enter input details' autocomplete='off'>
+                    <button class="add">submit</button>
+                    <button class='delete' disabled >delete</button>
+                </div>
             </div>
+            <!-- <button class='addNewCellBtn'>add new</button> -->
+        </div>
+    </script>
+    <script id='adding_template' type='text/template'>
+        <div class="main_data__single">
+            <input type="text" placeholder='enter digits plus means add minus means substract' autofocus autocomplete='off'>
+            <input type="text" placeholder='enter input details' autocomplete='off'>
+            <div class="time">{{time}}</div>
+            <button class="add">submit</button>
+            <button class='delete' disabled >delete</button>
         </div>
     </script>
     <script src="/socket.io/socket.io.js"></script>

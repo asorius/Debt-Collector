@@ -18,30 +18,40 @@ document.querySelector('.container').addEventListener('click',(e)=>{
         const html=Mustache.render(template)
         e.target.parentElement.innerHTML=template
     }
-     if(e.target.className==='createBtn'){
+    if(e.target.className==='createBtn'){
         const cName=document.querySelector('#collection_name').value,
                 cPass=document.querySelector('#collection_pass').value,
                 cAdminPass=document.querySelector('#collection_pass__admin').value
         postData({cName,cPass,cAdminPass}).then(res=>{
-            socket.emit('display',{name:res.collection_name})
+            socket.emit('callToCreate',{name:res.collection_name})
 
         }).catch(e=>console.log(e))
+    }
+    if(e.target.className==='add'){
+
+        e.target.setAttribute('disabled',true)
+        e.target.nextElementSibling.disabled=false
+        const inputTemplate=document.querySelector('#adding_template').innerHTML
+        const generatedTemplate=Mustache.render(inputTemplate)
+        console.log(typeof generatedTemplate)
+        document.querySelector('.main_data').innerHTML+=generatedTemplate
     }
    
     
 })
-socket.on('showData',(cName)=>{
-    const template=document.querySelector('#data_template').innerHTML
-    const html=Mustache.render(template,{text:cName})
+socket.on('callToShowDetailsOf',(collection)=>{
+    const startingTemplate=document.querySelector('#data_template').innerHTML
+    const html=Mustache.render(startingTemplate,{name:collection.name})
     document.querySelector('.container').innerHTML=html
+    
 })
-socket.on('createNew',(data)=>{
-    const name=data.cName
-    const template=document.querySelector('#dataTemplate').innerHTML
-    const html=Mustache.render(template,{name})
-    document.querySelector('.container').innerHTML=template
+// socket.on('createNew',(data)=>{
+//     const name=data.cName
+//     const template=document.querySelector('#dataTemplate').innerHTML
+//     const html=Mustache.render(template,{name:name})
+//     document.querySelector('.container').innerHTML=html
 
-})
+// })
 // document.querySelector('form').addEventListener('submit',(e)=>{
 //     // e.preventDefault()
 //     const cName=document.querySelector('#collection_name').value,
