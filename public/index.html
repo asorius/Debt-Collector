@@ -9,29 +9,10 @@
 </head>
 <body>
     <div class="container">
-            <!-- <div class="form form_create">
-                    <form action="./data.html" class="create">
-                        <label for="collection_name">Collection Name:</label>
-                        <input type="text" id="collection_name">
-                        <label for="collection_pass">Collection Password:</label>
-                        <input type="password" name="collection_pass" id="collection_pass">
-                        <label for="collection_pass__admin">Collection Admins Password:</label>
-                        <input type="password" name="collection_pass__admin" id="collection_pass__admin">
-                        <button>Create Collection</button>
-                    </form> -->
-                <!-- </div> -->
         <button class='new'>createnew</button>
         <button class='login'>login to existing one</button>
 
-        <!-- <div class="form form_user">
-            <form action="/data.html" class="login">
-                <label for="collection_name">Collection Name:</label>
-                <input type="text" id="collection_name">
-                <label for="collection_pass">Password:</label>
-                <input type="password" name="collection_pass" id="collection_pass">
-                <button>Connect to Collection</button>
-            </form>
-        </div> -->
+        
         <!-- <div class="form form_admin">
             <button id='adminBtn'>Admin Login</button>
             <form action="/data.html" class="login login_admin hidden">
@@ -43,7 +24,7 @@
             </form>
         </div> -->
     </div>
-    <script id='collection_template' type='text/template'>
+    <script id='new_collection_template' type='text/template'>
         <div class="form form_create">
             <form action="" class="create">
                 <label for="collection_name">Collection Name:</label>
@@ -56,27 +37,57 @@
             </form>
         </div>
     </script>
-    <script id='data_template' type='text/template'>
+    <script id='data_page_overall_template' type='text/template'>
         <div class='data_template__container'>
             <h1>{{name}}'s collection</h1>
-            <div class="main_data">
-                <div class="main_data__single">
-                    <input type="text" placeholder='enter digits plus means add minus means substract' autofocus autocomplete='off'>
-                    <input type="text" placeholder='enter input details' autocomplete='off'>
-                    <button class="add">submit</button>
-                    <button class='delete' disabled >delete</button>
-                </div>
-            </div>
-            <!-- <button class='addNewCellBtn'>add new</button> -->
+            <div class="main_data"></div>
+            <div class='sumDiv'>{{sum}}</div>
+            <button class='logout'>logout</button>            
         </div>
     </script>
-    <script id='adding_template' type='text/template'>
+
+    <script id='data_page_overall_template_admin' type='text/template'>
+        <div class='data_template__container'>
+            <h1>{{name}}'s collection</h1>
+            <div class="main_data__inputs">
+                <input type="text" placeholder='enter digits plus means add minus means substract' autofocus autocomplete='off'>
+                <input type="text" placeholder='enter input details' autocomplete='off'>
+                <button class="add">submit</button>
+            </div>
+            <div class="main_data">
+                
+            </div>
+            <div class='sumDiv'>{{sum}}</div>
+            <button class='logout'>logout</button>            
+
+        </div>
+    </script>
+
+    <script id='login_template' type='text/template'>
+        <div class="login_container">
+            <form class="login">
+                <label for="collection_name">Collection Name:</label>
+                <input type="text" id="collection_name">
+                <label for="collection_pass">Password:</label>
+                <input type="password" name="collection_pass" id="collection_pass">
+                <button class='connectBtn'>Connect to Collection</button>
+            </form>
+        </div>
+    </script>
+    <script id='single_add_template' type='text/template'>
         <div class="main_data__single">
-            <input type="text" placeholder='enter digits plus means add minus means substract' autofocus autocomplete='off'>
-            <input type="text" placeholder='enter input details' autocomplete='off'>
+            <div class='val'>{{amount}}</div>
+            <div class='dtls'>{{details}}</div>
             <div class="time">{{time}}</div>
-            <button class="add">submit</button>
-            <button class='delete' disabled >delete</button>
+        </div>
+    </script>
+    <script id='single_add_template_admin' type='text/template'>
+        <div class="main_data__single">
+            <input class='val' value={{amount}} disabled>
+            <input class='dtls' value={{details}} disabled>
+            <div class="time">{{time}}</div>
+            <button class='edit'>edit</button>
+            <button class='delete'>delete</button>
         </div>
     </script>
     <script src="/socket.io/socket.io.js"></script>

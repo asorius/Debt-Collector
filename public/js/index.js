@@ -1,69 +1,206 @@
 const socket=io()
 
-const postData= async (data)=>{
-    const response=await fetch('/datas',{
+const postDataToCreateNewCollection= async (data)=>{
+    try{
+        const response=await fetch('/datas',{
         method:'POST',
         headers:{
             'Content-type':'application/json'
         },
         body:JSON.stringify(data)})
+        const returnData= await response.json()
+        return returnData
+    }catch(e){
+        console.log(e)
+    }
+}
+const manualLogin= async (name,pass)=>{
+    try{
+        const response=await fetch('/datas/login',{
+        method:'POST',
+         headers:{
+        'Content-type':'application/json'
+        },
+        body:JSON.stringify({name,pass})
+        })
+        const returnData= await response.json()
+        return returnData
+    }catch(e){
+        console.log(e)
+    }
+    
+    
+}
+const getCollectionByToken=async (token)=>{
+    try{
+        const response=await fetch('/datas',{
+        method:'GET',
+        headers:{'x-auth':token}
+        })
     const returnData= await response.json()
     return returnData
-
+}catch(e){
+    console.log(e)
+    }
+}
+const addNewData=async(amount,details,token)=>{
+    try{
+        let data={amount,details}
+    const response=await fetch('/datas/add',{
+        method:'PATCH',
+        headers:{
+            'Content-type':'application/json',
+            'x-auth':token
+        },
+        body:JSON.stringify(data)
+    })
+    const returnData= await response.json()
+    return returnData
+}catch(e){
+    console.log(e)
+    }
 }
 document.querySelector('.container').addEventListener('click',(e)=>{
     e.preventDefault()
+
     if(e.target.className==='new'){
-        const template=document.querySelector('#collection_template').innerHTML
+    //to pop new creation form
+        const template=document.querySelector('#new_collection_template').innerHTML
         const html=Mustache.render(template)
         e.target.parentElement.innerHTML=template
     }
+
+    if(e.target.className==='login'){
+        //check if there is token
+        let token=window.localStorage.getItem('tokenKey');
+        //if there already is token, then auto load data
+        if(token){
+            //load data
+            getCollectionByToken(token).then(collection=>{
+            //response is name data sum aces
+            let dataArray=collection.data
+            let cname=collection.name
+            let sum=collection.sum
+            let access=collection.access
+            let startingTemplate
+            let inputTemplate
+            if(access==='admin'){
+                startingTemplate=document.querySelector('#data_page_overall_template_admin').innerHTML
+                inputTemplate=document.querySelector('#single_add_template_admin').innerHTML
+            }
+            if(access==='user'){
+                startingTemplate=document.querySelector('#data_page_overall_template').innerHTML
+                inputTemplate=document.querySelector('#single_add_template').innerHTML
+            }
+            
+            const html=Mustache.render(startingTemplate,{name:cname,sum:sum})
+            document.querySelector('.container').innerHTML=html
+
+            dataArray.forEach(element => {
+              
+            let generatedTemplate=Mustache.render(inputTemplate,{amount:element.amount,details:element.details,time:element.date})       
+            document.querySelector('.main_data').innerHTML+=generatedTemplate  
+            });
+
+            })
+            
+        }else{
+        //generate login form
+        const template=document.querySelector('#login_template').innerHTML
+        const html=Mustache.render(template)
+        e.target.parentElement.innerHTML=template}
+        
+    }
+    if(e.target.className==='connectBtn'){
+     //get values from form and login
+        
+        const cName=document.querySelector('#collection_name').value,
+                cPass=document.querySelector('#collection_pass').value
+        manualLogin(cName,cPass).then((dataObj=>{
+            let dataArray=dataObj.data
+            let cname=dataObj.name
+            let sum=dataObj.sum
+            let access=dataObj.access
+            window.localStorage.setItem('tokenKey', dataObj.token);
+            if(access==='admin'){
+                //admin
+                const startingTemplate=document.querySelector('#data_page_overall_template_admin').innerHTML
+                const html=Mustache.render(startingTemplate,{name:cname,sum:sum})
+                document.querySelector('.container').innerHTML=html
+
+                const inputTemplate=document.querySelector('#single_add_template_admin').innerHTML
+                
+                dataArray.forEach(element => {
+                
+                let generatedTemplate=Mustache.render(inputTemplate,{amount:element.amount,details:element.details,time:element.date})       
+                document.querySelector('.main_data').innerHTML+=generatedTemplate  
+                });
+            }else if(access==='user'){
+              //user
+                const startingTemplate=document.querySelector('#data_page_overall_template').innerHTML
+                const html=Mustache.render(startingTemplate,{name:cname,sum:sum})
+                document.querySelector('.container').innerHTML=html
+
+                const inputTemplate=document.querySelector('#single_add_template').innerHTML
+                
+                dataArray.forEach(element => {
+                
+                let generatedTemplate=Mustache.render(inputTemplate,{amount:element.amount,details:element.details,time:element.date})       
+                document.querySelector('.main_data').innerHTML+=generatedTemplate  
+                });  
+            }
+            
+
+            })
+        )}
+
     if(e.target.className==='createBtn'){
+    // send new collection request to database and save new token to localstorage
         const cName=document.querySelector('#collection_name').value,
                 cPass=document.querySelector('#collection_pass').value,
                 cAdminPass=document.querySelector('#collection_pass__admin').value
-        postData({cName,cPass,cAdminPass}).then(res=>{
+        postDataToCreateNewCollection({cName,cPass,cAdminPass}).then(res=>{
             socket.emit('callToCreate',{name:res.collection_name})
+            let token=res.token
+            localStorage.clear()
+            window.localStorage.setItem('tokenKey', token);
 
         }).catch(e=>console.log(e))
     }
-    if(e.target.className==='add'){
 
-        e.target.setAttribute('disabled',true)
-        e.target.nextElementSibling.disabled=false
-        const inputTemplate=document.querySelector('#adding_template').innerHTML
-        const generatedTemplate=Mustache.render(inputTemplate)
-        console.log(typeof generatedTemplate)
+    //add new inpoout
+    if(e.target.className==='add'){
+        let amountInput=e.target.parentElement.firstElementChild.value
+        let detailsInput=e.target.parentElement.children[1].value
+        let token=window.localStorage.getItem('tokenKey');
+        addNewData(amountInput,detailsInput,token).then(collection=>{
+        let lastDataItemInArray
+        if(collection.data.length===0){
+            lastDataItemInArray=collection.data[0]
+        }else{
+            lastDataItemInArray=collection.data[collection.data.length-1]
+        }
+        amountInput=e.target.parentElement.firstElementChild.value=''
+        detailsInput=e.target.parentElement.children[1].value=''
+
+        let inputTemplate=document.querySelector('#single_add_template_admin').innerHTML
+       
+        const generatedTemplate=Mustache.render(inputTemplate,{amount:lastDataItemInArray.amount,details:lastDataItemInArray.details,time:lastDataItemInArray.date})
+        
         document.querySelector('.main_data').innerHTML+=generatedTemplate
+        document.querySelector('.sumDiv').innerHTML=collection.sum
+        })  
     }
    
     
 })
 socket.on('callToShowDetailsOf',(collection)=>{
-    const startingTemplate=document.querySelector('#data_template').innerHTML
+    const startingTemplate=document.querySelector('#data_page_overall_template_admin').innerHTML
     const html=Mustache.render(startingTemplate,{name:collection.name})
     document.querySelector('.container').innerHTML=html
     
 })
-// socket.on('createNew',(data)=>{
-//     const name=data.cName
-//     const template=document.querySelector('#dataTemplate').innerHTML
-//     const html=Mustache.render(template,{name:name})
-//     document.querySelector('.container').innerHTML=html
 
-// })
-// document.querySelector('form').addEventListener('submit',(e)=>{
-//     // e.preventDefault()
-//     const cName=document.querySelector('#collection_name').value,
-//           cPass=document.querySelector('#collection_pass').value,
-//           cAdminPass=document.querySelector('#collection_pass__admin').value
-//     postData({cName,cPass,cAdminPass}).then((res)=>{
-//         // socket.emit('loadDataPage',{
-//         //     cName=res.cName
-//         // })
-//         console.log(res)
-//     }).catch(e=>console.log(e))
-// })
 socket.on('connect',()=>{
     console.log("im connected")
 })
