@@ -158,8 +158,11 @@ document.querySelector('.container').addEventListener('click',(e)=>{
             document.querySelector('.container').innerHTML=html
 
             dataArray.forEach(element => {
-              
-            let generatedTemplate=Mustache.render(inputTemplate,{amount:element.amount,details:element.details,time:element.date,edited:element.editDate})       
+                let edt
+                if(element.editDate){
+                    edt=`edited at ${element.editDate}`
+                }else{edt=''}
+            let generatedTemplate=Mustache.render(inputTemplate,{amount:element.amount,details:element.details,time:element.date,edited:edt})       
             document.querySelector('.main_data').innerHTML+=generatedTemplate  
             });
 
@@ -193,8 +196,11 @@ document.querySelector('.container').addEventListener('click',(e)=>{
                 const inputTemplate=document.querySelector('#single_add_template_admin').innerHTML
                 
                 dataArray.forEach(element => {
-                
-                let generatedTemplate=Mustache.render(inputTemplate,{amount:element.amount,details:element.details,time:element.date,edited:element.editDate})       
+                    let edt
+                    if(element.editDate){
+                        edt=`edited at ${element.editDate}`
+                    }else{edt=''}
+                let generatedTemplate=Mustache.render(inputTemplate,{amount:element.amount,details:element.details,time:element.date,edited:edt})       
                 document.querySelector('.main_data').innerHTML+=generatedTemplate  
                 });
             }else if(access==='user'){
@@ -207,8 +213,11 @@ document.querySelector('.container').addEventListener('click',(e)=>{
                 const inputTemplate=document.querySelector('#single_add_template').innerHTML
                 
                 dataArray.forEach(element => {
-                
-                let generatedTemplate=Mustache.render(inputTemplate,{amount:element.amount,details:element.details,time:element.date,edited:element.editDate})       
+                    let edt
+                    if(element.editDate){
+                        edt=`edited at ${element.editDate}`
+                    }else{edt=''}
+                let generatedTemplate=Mustache.render(inputTemplate,{amount:element.amount,details:element.details,time:element.date,edited:edt})       
                 document.querySelector('.main_data').innerHTML+=generatedTemplate  
                 });  
             }

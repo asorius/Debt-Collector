@@ -101,7 +101,7 @@ CollectionSchema.pre('save',function(next){
     collection.data.forEach(element => {
         newsum+=element.amount
     });
-    collection.sum=newsum
+    collection.sum=newsum.toFixed(2)
     next()
 })
 

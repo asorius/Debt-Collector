@@ -153,13 +153,13 @@ app.delete('/datas/:date',authenticate,async(req,res)=>{
         const findDate=req.params.date
         let previous=await Collection.findById(id)
         const updatedCollection=await Collection.findByIdAndUpdate(id,{$pull:{data:{date:findDate}}},{new:true})
+        await updatedCollection.save()
+        let sum=updatedCollection.sum
+        deleted=true
         if(previous.data.length===updatedCollection.data.length){
-            await updatedCollection.save()
-            res.send({deleted:false,sum:resp.sum})
-        }else{
-            await updatedCollection.save()            
-            res.send({deleted:true,sum:resp.sum})
+            deleted=false
         }
+        res.send({deleted,sum})
         
     }catch{
         res.status(400).send({deleted:false,error:'error'})
