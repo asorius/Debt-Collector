@@ -42,7 +42,7 @@ const CollectionSchema=new mongoose.Schema({
 
 })
 
-CollectionSchema.methods.generateAuthToken=function(user){
+CollectionSchema.methods.generateAuthToken= function(user){
     const collection=this
     let access=user
     const token=jwt.sign(
@@ -53,7 +53,7 @@ CollectionSchema.methods.generateAuthToken=function(user){
     return collection.save().then(()=>{return token})
 }
 
-CollectionSchema.statics.findByToken=function(token){
+CollectionSchema.statics.findByToken=async function(token){
     const collection=this
     let decoded
     try{
@@ -62,20 +62,22 @@ CollectionSchema.statics.findByToken=function(token){
         return Promise.reject()
     }
 
-    return collection.findOne({
+    const foundCollection=await collection.findOne({
         '_id':decoded._id,
         'tokens.token':token
     })
+    return {foundCollection,access:decoded.access}
 }
 
-CollectionSchema.methods.removeToken=function(token){
+CollectionSchema.methods.removeTokens=function(){
     const collection=this
     return collection.update({
-        $pull:{
-            tokens:{token}
+        $set:{
+            tokens:[]
         }
     })
 }
+
 CollectionSchema.pre('save',function(next){
     const collection=this
     if(collection.isModified('password')){
@@ -93,6 +95,17 @@ CollectionSchema.pre('save',function(next){
     }else{next()}
 })
 
+CollectionSchema.pre('save',function(next){
+    const collection=this
+    let newsum=0
+    collection.data.forEach(element => {
+        newsum+=element.amount
+    });
+    collection.sum=newsum
+    next()
+})
+
+
 CollectionSchema.statics.findByCredentials= async function(name,password){
     const collection=this
     const foundCollection=await collection.findOne({collection_name:name})  
@@ -107,6 +120,20 @@ CollectionSchema.statics.findByCredentials= async function(name,password){
         return {noMatch:true}
     }
 }
+
+// CollectionSchema.methods.editData= function(findDate,amount,editDate){
+//     const collection=this
+//     let edited=false
+//     let newData=collection.data.map((el)=>{
+//         if(el.date===findDate){
+//             el.editDate=editDate
+//             el.amount=amount
+//             edited=true
+//         }
+//         return el
+//     })
+//     return {olddata:collection.data,newData,edited}
+// }
 
 const Collection=mongoose.model('Collection',CollectionSchema)
 module.exports={Collection}

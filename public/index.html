@@ -11,35 +11,25 @@
     <div class="container">
         <button class='new'>createnew</button>
         <button class='login'>login to existing one</button>
-
-        
-        <!-- <div class="form form_admin">
-            <button id='adminBtn'>Admin Login</button>
-            <form action="/data.html" class="login login_admin hidden">
-                <label for="collection_name">Collection Name:</label>
-                <input type="text" id="collection_name__admin">
-                <label for="collection_pass__admin">Admin Password:</label>
-                <input type="password" name="collection_pass__admin" id="collection_pass__admin">
-                <button>Connect as Admin</button>
-            </form>
-        </div> -->
     </div>
+
     <script id='new_collection_template' type='text/template'>
         <div class="form form_create">
+            <button class='back'>back</button>
             <form action="" class="create">
-                <label for="collection_name">Collection Name:</label>
+                <label for="collection_name">account Name:</label>
                 <input type="text" id="collection_name" autofocus autocomplete='off'>
-                <label for="collection_pass">Collection Password:</label>
+                <label for="collection_pass">account Password:</label>
                 <input type="password" name="collection_pass" id="collection_pass">
-                <label for="collection_pass__admin">Collection Admins Password:</label>
+                <label for="collection_pass__admin">account Admins Password:</label>
                 <input type="password" name="collection_pass__admin" id="collection_pass__admin">
-                <button class='createBtn'>Create Collection</button>
+                <button class='createBtn'>Create account</button>
             </form>
         </div>
     </script>
     <script id='data_page_overall_template' type='text/template'>
         <div class='data_template__container'>
-            <h1>{{name}}'s collection</h1>
+            <h1>{{name}}'s account</h1>
             <div class="main_data"></div>
             <div class='sumDiv'>{{sum}}</div>
             <button class='logout'>logout</button>            
@@ -48,29 +38,32 @@
 
     <script id='data_page_overall_template_admin' type='text/template'>
         <div class='data_template__container'>
-            <h1>{{name}}'s collection</h1>
+            <h1>{{name}}'s account</h1>
             <div class="main_data__inputs">
-                <input type="text" placeholder='enter digits plus means add minus means substract' autofocus autocomplete='off'>
-                <input type="text" placeholder='enter input details' autocomplete='off'>
+                <input type="number" placeholder='amount..' autofocus autocomplete='off'>
+                <input type="text" placeholder='for..' autocomplete='off'>
                 <button class="add">submit</button>
             </div>
             <div class="main_data">
                 
             </div>
             <div class='sumDiv'>{{sum}}</div>
-            <button class='logout'>logout</button>            
+            <button class='logout'>logout</button> 
+            <button class='deleteAll'>delete account</button>            
+
 
         </div>
     </script>
 
     <script id='login_template' type='text/template'>
         <div class="login_container">
+            <button class='back'>back</button>
             <form class="login">
-                <label for="collection_name">Collection Name:</label>
+                <label for="collection_name">account Name:</label>
                 <input type="text" id="collection_name">
                 <label for="collection_pass">Password:</label>
                 <input type="password" name="collection_pass" id="collection_pass">
-                <button class='connectBtn'>Connect to Collection</button>
+                <button class='connectBtn'>Connect to account</button>
             </form>
         </div>
     </script>
@@ -79,6 +72,7 @@
             <div class='val'>{{amount}}</div>
             <div class='dtls'>{{details}}</div>
             <div class="time">{{time}}</div>
+            <div class='edited'>edited at {{edited}}</div>
         </div>
     </script>
     <script id='single_add_template_admin' type='text/template'>
@@ -86,6 +80,7 @@
             <input class='val' value={{amount}} disabled>
             <input class='dtls' value={{details}} disabled>
             <div class="time">{{time}}</div>
+            <div class='edited'>edited at {{edited}}</div>
             <button class='edit'>edit</button>
             <button class='delete'>delete</button>
         </div>

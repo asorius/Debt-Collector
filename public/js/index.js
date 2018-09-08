@@ -27,10 +27,25 @@ const manualLogin= async (name,pass)=>{
         return returnData
     }catch(e){
         console.log(e)
-    }
-    
-    
+    }   
 }
+
+const logout=async(token)=>{
+    try{
+    const response=await fetch('/datas/logout',{
+        method:'PATCH',
+        headers:{
+            'Content-type':'application/json',
+            'x-auth':token
+        }
+    })
+    const returnData= await response.json()
+    return returnData
+}catch(e){
+    console.log(e)
+    }
+}
+
 const getCollectionByToken=async (token)=>{
     try{
         const response=await fetch('/datas',{
@@ -60,6 +75,50 @@ const addNewData=async(amount,details,token)=>{
     console.log(e)
     }
 }
+
+const deleteItem=async (date,token)=>{
+    try{
+        const response=await fetch(`/datas/${date}`,{
+        method:'DELETE',
+        headers:{'x-auth':token}
+        })
+    const returnData= await response.json()
+    return returnData
+    }catch(e){
+        console.log(e)
+    }
+}
+
+const deleteCollection=async (token)=>{
+    try{
+        const response=await fetch('/datas/whole',{
+        method:'DELETE',
+        headers:{'x-auth':token}
+        })
+    const returnData= await response.json()
+    return returnData
+    }catch(e){
+        console.log(e)
+    }
+}
+const editData=async (token,findDate,amount,details)=>{
+    try{
+        let data={amount,details,findDate}
+    const response=await fetch('/datas/edit',{
+        method:'PATCH',
+        headers:{
+            'Content-type':'application/json',
+            'x-auth':token
+        },
+        body:JSON.stringify(data)
+    })
+    const returnData= await response.json()
+    return returnData
+}catch(e){
+    console.log(e)
+    }
+}
+
 document.querySelector('.container').addEventListener('click',(e)=>{
     e.preventDefault()
 
@@ -85,10 +144,12 @@ document.querySelector('.container').addEventListener('click',(e)=>{
             let startingTemplate
             let inputTemplate
             if(access==='admin'){
+                if(dataArray.length===0){sum=''}
                 startingTemplate=document.querySelector('#data_page_overall_template_admin').innerHTML
                 inputTemplate=document.querySelector('#single_add_template_admin').innerHTML
             }
             if(access==='user'){
+                if(dataArray.length===0){sum=''}
                 startingTemplate=document.querySelector('#data_page_overall_template').innerHTML
                 inputTemplate=document.querySelector('#single_add_template').innerHTML
             }
@@ -98,11 +159,11 @@ document.querySelector('.container').addEventListener('click',(e)=>{
 
             dataArray.forEach(element => {
               
-            let generatedTemplate=Mustache.render(inputTemplate,{amount:element.amount,details:element.details,time:element.date})       
+            let generatedTemplate=Mustache.render(inputTemplate,{amount:element.amount,details:element.details,time:element.date,edited:element.editDate})       
             document.querySelector('.main_data').innerHTML+=generatedTemplate  
             });
 
-            })
+            }).catch(e=>alert('error'))
             
         }else{
         //generate login form
@@ -124,6 +185,7 @@ document.querySelector('.container').addEventListener('click',(e)=>{
             window.localStorage.setItem('tokenKey', dataObj.token);
             if(access==='admin'){
                 //admin
+                if(dataArray.length===0){sum=''}
                 const startingTemplate=document.querySelector('#data_page_overall_template_admin').innerHTML
                 const html=Mustache.render(startingTemplate,{name:cname,sum:sum})
                 document.querySelector('.container').innerHTML=html
@@ -132,11 +194,12 @@ document.querySelector('.container').addEventListener('click',(e)=>{
                 
                 dataArray.forEach(element => {
                 
-                let generatedTemplate=Mustache.render(inputTemplate,{amount:element.amount,details:element.details,time:element.date})       
+                let generatedTemplate=Mustache.render(inputTemplate,{amount:element.amount,details:element.details,time:element.date,edited:element.editDate})       
                 document.querySelector('.main_data').innerHTML+=generatedTemplate  
                 });
             }else if(access==='user'){
               //user
+              if(dataArray.length===0){sum=''}
                 const startingTemplate=document.querySelector('#data_page_overall_template').innerHTML
                 const html=Mustache.render(startingTemplate,{name:cname,sum:sum})
                 document.querySelector('.container').innerHTML=html
@@ -145,7 +208,7 @@ document.querySelector('.container').addEventListener('click',(e)=>{
                 
                 dataArray.forEach(element => {
                 
-                let generatedTemplate=Mustache.render(inputTemplate,{amount:element.amount,details:element.details,time:element.date})       
+                let generatedTemplate=Mustache.render(inputTemplate,{amount:element.amount,details:element.details,time:element.date,edited:element.editDate})       
                 document.querySelector('.main_data').innerHTML+=generatedTemplate  
                 });  
             }
@@ -165,7 +228,7 @@ document.querySelector('.container').addEventListener('click',(e)=>{
             localStorage.clear()
             window.localStorage.setItem('tokenKey', token);
 
-        }).catch(e=>console.log(e))
+        })
     }
 
     //add new inpoout
@@ -173,7 +236,7 @@ document.querySelector('.container').addEventListener('click',(e)=>{
         let amountInput=e.target.parentElement.firstElementChild.value
         let detailsInput=e.target.parentElement.children[1].value
         let token=window.localStorage.getItem('tokenKey');
-        addNewData(amountInput,detailsInput,token).then(collection=>{
+        addNewData(parseFloat(amountInput),detailsInput,token).then(collection=>{
         let lastDataItemInArray
         if(collection.data.length===0){
             lastDataItemInArray=collection.data[0]
@@ -191,7 +254,75 @@ document.querySelector('.container').addEventListener('click',(e)=>{
         document.querySelector('.sumDiv').innerHTML=collection.sum
         })  
     }
-   
+    //delete intem
+    if(e.target.className==='delete'){
+        let date=e.target.parentElement.children[2].textContent
+        let token=window.localStorage.getItem('tokenKey');
+        deleteItem(date,token).then(res=>{
+            if(res.deleted){
+                e.target.parentElement.remove()
+                document.querySelector('.sumDiv').textContent=res.sum
+            }
+        })
+    }
+    //delle whole
+    if(e.target.className==='deleteAll'){
+        let token=window.localStorage.getItem('tokenKey');
+        deleteCollection(token).then((deletedCollection)=>{
+            alert(`${deletedCollection.collection_name}'s acount sucesfuly deleted`)
+            window.localStorage.clear()
+            window.location.reload()
+        })
+        
+    }
+    //logout token
+    if(e.target.className==='logout'){
+        let token=window.localStorage.getItem('tokenKey');
+        logout(token).then((res)=>{
+            if(res.deleted){
+                window.localStorage.clear()
+                window.location.reload()
+            }else{
+                console.log(res)
+            }
+            
+        })
+        
+    }
+    
+    //bac kbtn
+    if(e.target.className==='back'){
+        window.location.reload()
+    }
+    //to change button
+    if(e.target.className==='edit'){
+        let amountInput=e.target.parentElement.firstElementChild
+        let detailsInput=e.target.parentElement.children[1]
+        amountInput.disabled=false
+        detailsInput.disabled=false
+        e.target.innerText='save edition'
+        e.target.className='saveEdit'
+    }
+    //edit
+    else if(e.target.className==='saveEdit'){
+        let findDate=e.target.parentElement.children[2].textContent
+        let amountInput=e.target.parentElement.firstElementChild
+        let detailsInput=e.target.parentElement.children[1]
+        let token=window.localStorage.getItem('tokenKey');
+        
+        editData(token,findDate,parseFloat(amountInput.value),detailsInput.value).then((res)=>{
+            if(!res.edited){return alert('eror')}
+            e.target.parentElement.querySelector('.edited').innerText=` edited at ${res.editDate}`
+            document.querySelector('.sumDiv').innerHTML=res.nsum
+
+
+        })
+        amountInput.disabled=true
+        detailsInput.disabled=true
+        e.target.className='edit'
+        e.target.innerText='edit'
+    }
+
     
 })
 socket.on('callToShowDetailsOf',(collection)=>{

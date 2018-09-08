@@ -7,7 +7,7 @@ const authenticate=(req,res,next)=>{
         if(!collection){
             return Promise.reject()
         }
-        req.id=collection._id
+        req.id=collection.foundCollection._id
         req.token=token
         next()
     }).catch((e)=>{
