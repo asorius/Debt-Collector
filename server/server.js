@@ -41,8 +41,8 @@ app.post('/datas/login',async(req,res)=>{
             "access":response.loginType,
             "token":token
         })
-    }catch(e){
-        res.status(400).send(e)
+    }catch{
+        res.status(400).send()
     }
 })
 //.lpougout and delete token
@@ -57,7 +57,7 @@ app.patch('/datas/logout',authenticate,async(req,res)=>{
         }else{
             res.send({deleted:true})
         }
-    }catch{res.status(400).end('loyugout error')}
+    }catch{res.status(400).send('loyugout error')}
 })
 
 //route to autogetdata by token
@@ -167,7 +167,7 @@ app.delete('/datas/:date',authenticate,async(req,res)=>{
 })
 //delete whole collection
 
-app.delete('/datas/whole',authenticate,async(req,res)=>{
+app.delete('/delete',authenticate,async(req,res)=>{
     try{
         const id=req.id
         let collection=await Collection.findByIdAndRemove(id)

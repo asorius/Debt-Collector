@@ -1,9 +1,32 @@
-.hidden{
-    display: none;
+.container{
+    padding:2em;
+    width: 96vw;
 }
-form{
+.main_data__single{
     display: flex;
-    flex-direction: column;
-    margin:0 auto;
-    padding:2rem
+    justify-content: space-around;
+    align-items: center;
+    padding:1em;
+    border-bottom:1px solid rgba(0, 0, 0, 0.089)
+}
+.main_data__single *{
+    margin:.5em
+}
+.sumDiv{
+    text-align: center;
+    padding:1em;
+}
+h1{
+    font-size: 3em;
+    text-align: center
+}
+.main_data__inputs{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding:1em;
+    border-bottom:1px solid rgba(0, 0, 0, 0.089)
+}
+.main_data__single > inputs{
+    border: inherit
 }

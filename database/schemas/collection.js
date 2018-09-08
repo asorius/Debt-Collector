@@ -10,17 +10,17 @@ const CollectionSchema=new mongoose.Schema({
         require:true,
         trim:true,
         unique:true,
-        minlength:4
+        minlength:8
     },
     password:{
         type:String,
         require:true,
-        minlength:2
+        minlength:6
     },
     password_admin:{
         type:String,
         require:true,
-        minlength:2
+        minlength:6
     },
     data:[],
     sum:{

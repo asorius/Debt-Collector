@@ -91,7 +91,7 @@ const deleteItem=async (date,token)=>{
 
 const deleteCollection=async (token)=>{
     try{
-        const response=await fetch('/datas/whole',{
+        const response=await fetch('/delete',{
         method:'DELETE',
         headers:{'x-auth':token}
         })
@@ -160,13 +160,17 @@ document.querySelector('.container').addEventListener('click',(e)=>{
             dataArray.forEach(element => {
                 let edt
                 if(element.editDate){
-                    edt=`edited at ${element.editDate}`
+                    edt=`Edited at ${element.editDate}`
                 }else{edt=''}
             let generatedTemplate=Mustache.render(inputTemplate,{amount:element.amount,details:element.details,time:element.date,edited:edt})       
             document.querySelector('.main_data').innerHTML+=generatedTemplate  
             });
 
-            }).catch(e=>alert('error'))
+            }).catch(e=>{
+                alert('inlavid lodign token request')
+                window.localStorage.clear()
+                window.location.reload()
+            })
             
         }else{
         //generate login form
@@ -198,7 +202,7 @@ document.querySelector('.container').addEventListener('click',(e)=>{
                 dataArray.forEach(element => {
                     let edt
                     if(element.editDate){
-                        edt=`edited at ${element.editDate}`
+                        edt=`Edited at ${element.editDate}`
                     }else{edt=''}
                 let generatedTemplate=Mustache.render(inputTemplate,{amount:element.amount,details:element.details,time:element.date,edited:edt})       
                 document.querySelector('.main_data').innerHTML+=generatedTemplate  
@@ -215,7 +219,7 @@ document.querySelector('.container').addEventListener('click',(e)=>{
                 dataArray.forEach(element => {
                     let edt
                     if(element.editDate){
-                        edt=`edited at ${element.editDate}`
+                        edt=`Edited at ${element.editDate}`
                     }else{edt=''}
                 let generatedTemplate=Mustache.render(inputTemplate,{amount:element.amount,details:element.details,time:element.date,edited:edt})       
                 document.querySelector('.main_data').innerHTML+=generatedTemplate  
@@ -224,7 +228,13 @@ document.querySelector('.container').addEventListener('click',(e)=>{
             
 
             })
-        )}
+        ).catch((e)=>{
+            alert('invalid acount name or pasword')
+            window.localStorage.clear()
+            document.querySelector('#collection_name').value=''
+            document.querySelector('#collection_pass').value=''
+        })
+    }
 
     if(e.target.className==='createBtn'){
     // send new collection request to database and save new token to localstorage
@@ -260,7 +270,7 @@ document.querySelector('.container').addEventListener('click',(e)=>{
         const generatedTemplate=Mustache.render(inputTemplate,{amount:lastDataItemInArray.amount,details:lastDataItemInArray.details,time:lastDataItemInArray.date})
         
         document.querySelector('.main_data').innerHTML+=generatedTemplate
-        document.querySelector('.sumDiv').innerHTML=collection.sum
+        document.querySelector('.sumDiv').innerHTML=`<h3>In total: ${collection.sum} &#163;.</h3>`
         })  
     }
     //delete intem
@@ -270,7 +280,7 @@ document.querySelector('.container').addEventListener('click',(e)=>{
         deleteItem(date,token).then(res=>{
             if(res.deleted){
                 e.target.parentElement.remove()
-                document.querySelector('.sumDiv').textContent=res.sum
+                document.querySelector('.sumDiv').innerHTML=`<h3>In total: ${res.sum} &#163;.</h3>`
             }
         })
     }
@@ -321,8 +331,8 @@ document.querySelector('.container').addEventListener('click',(e)=>{
         
         editData(token,findDate,parseFloat(amountInput.value),detailsInput.value).then((res)=>{
             if(!res.edited){return alert('eror')}
-            e.target.parentElement.querySelector('.edited').innerText=` edited at ${res.editDate}`
-            document.querySelector('.sumDiv').innerHTML=res.nsum
+            e.target.parentElement.querySelector('.edited').innerText=` Edited at ${res.editDate}`
+            document.querySelector('.sumDiv').innerHTML=`<h3>In total: ${res.nsum} &#163;.</h3>`
 
 
         })
