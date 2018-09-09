@@ -30,3 +30,25 @@ h1{
 .main_data__single > inputs{
     border: inherit
 }
+input:disabled {
+    color:rgb(119, 117, 117);
+    background: -webkit-linear-gradient(0deg, rgba(246,248,249,1) 0, rgba(229,235,238,0.65) 8%, rgba(215,222,227,1) 20%, rgba(139,148,158,1) 60%, rgba(139,148,158,1) 100%);
+  background: -moz-linear-gradient(90deg, rgba(246,248,249,1) 0, rgba(229,235,238,0.65) 8%, rgba(215,222,227,1) 20%, rgba(139,148,158,1) 60%, rgba(139,148,158,1) 100%);
+  background: linear-gradient(90deg, rgba(246,248,249,1) 0, rgba(229,235,238,0.65) 8%, rgba(215,222,227,1) 20%, rgba(139,148,158,1) 60%, rgba(139,148,158,1) 100%);
+    background-position: 50% 50%;
+    -webkit-background-origin: padding-box;
+    background-origin: padding-box;
+    -webkit-background-clip: border-box;
+    background-clip: border-box;
+    -webkit-background-size: auto auto;
+    background-size: auto auto;
+    border:1px solid rgb(139, 137, 137)
+  }
+  .dtls input{
+    font-family: inherit;
+    width:inherit;
+    border:1px solid rgb(139, 137, 137);
+    border-radius:5px;
+    padding:5px;
+    height:3.5rem;
+  }

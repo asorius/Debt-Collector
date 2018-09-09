@@ -254,6 +254,7 @@ document.querySelector('.container').addEventListener('click',(e)=>{
     if(e.target.className==='add'){
         let amountInput=e.target.parentElement.firstElementChild.value
         let detailsInput=e.target.parentElement.children[1].value
+        if(amountInput==='' || detailsInput===''){return alert('fill both fields')}
         let token=window.localStorage.getItem('tokenKey');
         addNewData(parseFloat(amountInput),detailsInput,token).then(collection=>{
         let lastDataItemInArray
@@ -319,6 +320,23 @@ document.querySelector('.container').addEventListener('click',(e)=>{
         let detailsInput=e.target.parentElement.children[1]
         amountInput.disabled=false
         detailsInput.disabled=false
+
+        
+        amountInput.style.border='3px solid rgb(139, 137, 137)'
+        amountInput.style.borderRadius='5px'
+        amountInput.style.height='3.5rem'
+        amountInput.style.fontFamily='inherit'
+        amountInput.style.width='inherit'
+
+
+        detailsInput.style.border='3px solid rgb(139, 137, 137)'
+        detailsInput.style.borderRadius='5px'
+        detailsInput.style.height='3.5rem'
+        detailsInput.style.fontFamily='inherit'
+        detailsInput.style.width='inherit'
+
+
+
         e.target.innerText='save edition'
         e.target.className='saveEdit'
     }
@@ -338,6 +356,8 @@ document.querySelector('.container').addEventListener('click',(e)=>{
         })
         amountInput.disabled=true
         detailsInput.disabled=true
+        detailsInput.style.border='1px solid rgb(139, 137, 137)'
+        amountInput.style.border='1px solid rgb(139, 137, 137)'
         e.target.className='edit'
         e.target.innerText='edit'
     }
