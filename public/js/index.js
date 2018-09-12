@@ -182,8 +182,8 @@ document.querySelector('.container').addEventListener('click',(e)=>{
     if(e.target.className==='connectBtn'){
      //get values from form and login
         
-        const cName=document.querySelector('#collection_name').value,
-                cPass=document.querySelector('#collection_pass').value
+        const cName=document.querySelector('#collection_name').value.toLowerCase(),
+                cPass=document.querySelector('#collection_pass').value.toLowerCase()
         manualLogin(cName,cPass).then((dataObj=>{
             let dataArray=dataObj.data
             let cname=dataObj.name
@@ -238,9 +238,9 @@ document.querySelector('.container').addEventListener('click',(e)=>{
 
     if(e.target.className==='createBtn'){
     // send new collection request to database and save new token to localstorage
-        const cName=document.querySelector('#collection_name').value,
-                cPass=document.querySelector('#collection_pass').value,
-                cAdminPass=document.querySelector('#collection_pass__admin').value
+        const cName=document.querySelector('#collection_name').value.toLowerCase(),
+                cPass=document.querySelector('#collection_pass').value.toLowerCase(),
+                cAdminPass=document.querySelector('#collection_pass__admin').value.toLowerCase()
         postDataToCreateNewCollection({cName,cPass,cAdminPass}).then(res=>{
             socket.emit('callToCreate',{name:res.collection_name})
             let token=res.token
@@ -321,23 +321,8 @@ document.querySelector('.container').addEventListener('click',(e)=>{
         amountInput.disabled=false
         detailsInput.disabled=false
 
-        
-        amountInput.style.border='3px solid rgb(139, 137, 137)'
-        amountInput.style.borderRadius='5px'
-        amountInput.style.height='3.5rem'
-        amountInput.style.fontFamily='inherit'
-        amountInput.style.width='inherit'
 
-
-        detailsInput.style.border='3px solid rgb(139, 137, 137)'
-        detailsInput.style.borderRadius='5px'
-        detailsInput.style.height='3.5rem'
-        detailsInput.style.fontFamily='inherit'
-        detailsInput.style.width='inherit'
-
-
-
-        e.target.innerText='save edition'
+        e.target.innerHTML="<span class='edit_single'>Save</span>"
         e.target.className='saveEdit'
     }
     //edit
@@ -349,17 +334,15 @@ document.querySelector('.container').addEventListener('click',(e)=>{
         
         editData(token,findDate,parseFloat(amountInput.value),detailsInput.value).then((res)=>{
             if(!res.edited){return alert('eror')}
-            e.target.parentElement.querySelector('.edited').innerText=` Edited at ${res.editDate}`
+            e.target.parentElement.querySelector('.edited').innerText=`Edited at ${res.editDate}`
             document.querySelector('.sumDiv').innerHTML=`<h3>In total: ${res.nsum} &#163;.</h3>`
 
 
         })
         amountInput.disabled=true
         detailsInput.disabled=true
-        detailsInput.style.border='1px solid rgb(139, 137, 137)'
-        amountInput.style.border='1px solid rgb(139, 137, 137)'
         e.target.className='edit'
-        e.target.innerText='edit'
+        e.target.innerHTML='<span class="edit_single">Edit</span>'
     }
 
     
