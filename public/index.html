@@ -4,11 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <!-- <link rel="stylesheet" href="./assets/skeleton.css"> -->
+    <link rel="icon" href="./assets/icon.png">
     <link rel="stylesheet" href="./assets/normalize.css">
     <link rel="stylesheet" href="./assets/style.css">
     <link href="https://fonts.googleapis.com/css?family=Indie+Flower|Lustria" rel="stylesheet">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
     <title>Debt Collector</title>
 </head>
 <body>
@@ -23,16 +22,16 @@
             <button class='back'>back</button>
             <form action="" class="create">
                 <label for="collection_name">Account Name:</label>
-                <input type="text" id="collection_name" autofocus placeholder='Min 8 characters..' autocomplete='off'>
+                <input type="text" id="collection_name" placeholder='Min 8 characters..' autocomplete='off'>
                 <label for="collection_pass">User Password:</label>
                 <input type="password" name="collection_pass" id="collection_pass" placeholder='Min 6 characters..'>
                 <label for="collection_pass__admin" >Admin Password:</label>
-                <input type="password" name="collection_pass__admin" id="collection_pass__admin" placeholder='min 6 characters..'>
-                <button class='createBtn'>Create!</button>
+                <input type="password" name="collection_pass__admin" id="collection_pass__admin" placeholder='Min 6 characters..'>
+                <button class='createBtn'>Create</button>
             </form>
         </div>
     </script>
-    <script id='data_page_overall_template' type='text/template'>
+    <script id='data_page_overall_template_user' type='text/template'>
         <div class='data_template__container_user'>
             <h1 id='accName'>{{name}}'s account</h1>
             <div class="main_data"></div>
@@ -45,7 +44,7 @@
         <div class='data_template__container'>
             <h1 id='accName'>{{name}}'s account</h1>
             <div class="main_data__inputs">
-                <input class='ain' type="number" placeholder='Amount' autocomplete='off'>
+                <input class='ain' type="text" placeholder='Amount' autocomplete='off'>
                 <input class='din' type="text" placeholder='Details' autocomplete='off'>
                 <button class="add">Submit</button>
             </div>
@@ -78,18 +77,17 @@
         <div class="main_data__single_user">
             <div class='val user_div'><span class='amountVal'>{{amount}}</span> <span>&#163;</span>. <span class='detVal'>{{details}}</span>.</div>
             <div class="time user_div">At {{time}}.</div>
-            <div class='edited user_div'>{{edited}}.</div>
+            <div class='edited user_div'>{{edited}}</div>
         </div>
     </script>
     <script id='single_add_template_admin' type='text/template'>
         <div class="main_data__single">
-            <input class='val adm_in' type="number" value='{{amount}}' disabled>
+            <input class='val adm_in' type="text" value='{{amount}}' disabled>
             <input class='dtls adm_in' type='text' value='{{details}}' disabled>
             <div class="time adm_div">{{time}}</div>
             <div class='edited adm_div'>{{edited}}</div>
-            <button class='edit'><span class='edit_single'>Edit</span></button>
-            <button class='delete'><span class='edit_single'>Delete</span></i>
-            </button>
+            <button class='edit'>Edit</button>
+            <button class='delete'>Delete</button>
         </div>
     </script>
     <script src="/socket.io/socket.io.js"></script>

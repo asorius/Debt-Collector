@@ -1,3 +1,4 @@
+// import {} from './partials/admin'
 const socket=io()
 
 const postDataToCreateNewCollection= async (data)=>{
@@ -150,7 +151,7 @@ document.querySelector('.container').addEventListener('click',(e)=>{
             }
             if(access==='user'){
                 if(dataArray.length===0){sum=''}
-                startingTemplate=document.querySelector('#data_page_overall_template').innerHTML
+                startingTemplate=document.querySelector('#data_page_overall_template_user').innerHTML
                 inputTemplate=document.querySelector('#single_add_template').innerHTML
             }
             
@@ -184,7 +185,8 @@ document.querySelector('.container').addEventListener('click',(e)=>{
         
         const cName=document.querySelector('#collection_name').value.toLowerCase(),
                 cPass=document.querySelector('#collection_pass').value.toLowerCase()
-        manualLogin(cName,cPass).then((dataObj=>{
+
+        manualLogin(cName,cPass).then(dataObj=>{
             let dataArray=dataObj.data
             let cname=dataObj.name
             let sum=dataObj.sum
@@ -209,8 +211,9 @@ document.querySelector('.container').addEventListener('click',(e)=>{
                 });
             }else if(access==='user'){
               //user
+
               if(dataArray.length===0){sum=''}
-                const startingTemplate=document.querySelector('#data_page_overall_template').innerHTML
+                const startingTemplate=document.querySelector('#data_page_overall_template_user').innerHTML
                 const html=Mustache.render(startingTemplate,{name:cname,sum:sum})
                 document.querySelector('.container').innerHTML=html
 
@@ -227,12 +230,13 @@ document.querySelector('.container').addEventListener('click',(e)=>{
             }
             
 
-            })
+            }
         ).catch((e)=>{
             alert('invalid acount name or pasword')
             window.localStorage.clear()
             document.querySelector('#collection_name').value=''
             document.querySelector('#collection_pass').value=''
+
         })
     }
 
@@ -252,11 +256,21 @@ document.querySelector('.container').addEventListener('click',(e)=>{
 
     //add new inpoout
     if(e.target.className==='add'){
-        let amountInput=e.target.parentElement.firstElementChild.value
+        let amountInput=parseFloat(e.target.parentElement.firstElementChild.value)
         let detailsInput=e.target.parentElement.children[1].value
-        if(amountInput==='' || detailsInput===''){return alert('fill both fields')}
+        let numb=parseFloat(amountInput.toFixed(2))
+        if(Number.isNaN(amountInput)){
+            amountInput=e.target.parentElement.firstElementChild.value=''
+            return alert('enter only digits, bitch')
+        }
+        if(amountInput==='' || detailsInput===''){
+            amountInput=e.target.parentElement.firstElementChild.value=''
+            detailsInput=e.target.parentElement.children[1].value=''
+            return alert('fill both fields')
+        }
+        
         let token=window.localStorage.getItem('tokenKey');
-        addNewData(parseFloat(amountInput),detailsInput,token).then(collection=>{
+        addNewData(numb,detailsInput,token).then(collection=>{
         let lastDataItemInArray
         if(collection.data.length===0){
             lastDataItemInArray=collection.data[0]
@@ -316,33 +330,41 @@ document.querySelector('.container').addEventListener('click',(e)=>{
     }
     //to change button
     if(e.target.className==='edit'){
+
         let amountInput=e.target.parentElement.firstElementChild
         let detailsInput=e.target.parentElement.children[1]
         amountInput.disabled=false
         detailsInput.disabled=false
 
 
-        e.target.innerHTML="<span class='edit_single'>Save</span>"
+        e.target.innerText="Save"
         e.target.className='saveEdit'
     }
     //edit
     else if(e.target.className==='saveEdit'){
         let findDate=e.target.parentElement.children[2].textContent
-        let amountInput=e.target.parentElement.firstElementChild
-        let detailsInput=e.target.parentElement.children[1]
         let token=window.localStorage.getItem('tokenKey');
-        
-        editData(token,findDate,parseFloat(amountInput.value),detailsInput.value).then((res)=>{
+        let amountInput=parseFloat(e.target.parentElement.firstElementChild.value)
+        let detailsInput=e.target.parentElement.children[1].value
+        let numb=parseFloat(amountInput.toFixed(2))
+        if(Number.isNaN(amountInput)){
+            amountInput=e.target.parentElement.firstElementChild.value=''
+            return alert('enter only digits, bitch')
+        }
+        if(amountInput==='' || detailsInput===''){
+            amountInput=e.target.parentElement.firstElementChild.value=''
+            detailsInput=e.target.parentElement.children[1].value=''
+            return alert('fill both fields')
+        }
+        editData(token,findDate,numb,detailsInput).then((res)=>{
             if(!res.edited){return alert('eror')}
             e.target.parentElement.querySelector('.edited').innerText=`Edited at ${res.editDate}`
             document.querySelector('.sumDiv').innerHTML=`<h3>In total: ${res.nsum} &#163;.</h3>`
-
-
         })
-        amountInput.disabled=true
-        detailsInput.disabled=true
+        e.target.parentElement.firstElementChild.disabled=true
+        e.target.parentElement.children[1].disabled=true
         e.target.className='edit'
-        e.target.innerHTML='<span class="edit_single">Edit</span>'
+        e.target.innerText='Edit'
     }
 
     
@@ -355,8 +377,6 @@ socket.on('callToShowDetailsOf',(collection)=>{
 })
 
 socket.on('connect',()=>{
-    console.log("im connected")
 })
 socket.on('disconnect',()=>{
-    console.log('disconected')
 })

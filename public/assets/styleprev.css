@@ -1,0 +1,303 @@
+*{
+    outline: none;
+    box-sizing: border-box
+}
+body{
+    font-family: 'Lustria', serif;
+    width: 100%;
+    height: 100%;
+    background-image: url("/assets/qbkls.png");
+    background-repeat: repeat;
+    color:rgb(0, 0, 0)
+}
+button{
+    font-family: 'Lustria', serif;
+    padding:1em;
+    font-size: 1.1em;
+    border-radius:.5rem;
+    background-color:rgba(5, 105, 47, 0.801);
+    color:rgb(255, 255, 255);
+    margin:1em;
+    min-width:10rem;
+    border:1px solid rgba(0, 0, 0, 0.61);
+    box-shadow:5px 5px 9px -2px #000000;
+    text-shadow: -1px 0 rgb(24, 24, 24), 0 1px rgb(24, 24, 24), 1px 0 rgb(24, 24, 24), 0 -1px rgb(24, 24, 24);
+
+}
+
+::placeholder{
+    color:rgb(0, 0, 0);
+    padding:.5em;
+    font-family: inherit
+}
+input {
+    background: transparent;
+    height: 1.8em;
+    border-radius:.5rem;
+    border:1px solid rgba(4, 85, 38, 0.76);
+    width:80%;
+    transition: all .3s ease-in-out;
+    background-color: rgba(8, 172, 76, 0.13);
+    padding-left:.8rem;
+
+}
+
+input:focus {
+    border: 2px solid black;
+    background-color:rgba(8, 172, 76, 0.562);
+    color:black;  
+    padding-left:.8rem;
+    outline: none
+}
+input:disabled{
+    background-color: rgba(0, 0, 0, 0.288);
+    color:rgb(0, 0, 0);
+    border-color:black;
+    padding-left:.8rem;
+}
+
+.container{
+    margin:0 auto;
+    width: 90vw;
+    height: 100vh;
+    display:flex;
+    flex-direction:column;
+    align-items: center;
+}
+#slogan{
+    padding-top:2rem;
+    color:rgb(0, 0, 0);
+    padding-bottom: .5em;
+    border-bottom:1px solid rgb(0, 0, 0);
+    box-shadow:1px 7px 7px -5px rgba(5, 105, 47, 0.801);
+}
+
+/* /////// */
+.form {
+    height: 100%;
+    width: 100%
+}
+.back{
+    padding: .3rem;
+}
+.create{
+    display:flex;
+    height: 50%;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%
+
+}
+.login_container{
+    height: 100%;
+    width: 100%;
+}
+.loginForm{
+    padding-top: 2rem;
+    display:flex;
+    height: 75%;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+.loginForm label{
+    padding:.8em
+}
+.connectBtn{
+    background-color: rgba(5, 105, 47, 0.801);;
+    border:1px solid black;
+}
+
+.createBtn{
+    background-color: rgba(5, 105, 47, 0.801);
+    border:1px solid black
+}
+.main_data{
+    display: flex;
+    flex-direction: column;
+    max-height:22em;
+    overflow-y: scroll;
+    background-color:rgba(104, 104, 104, 0.096);
+    border-radius: .5rem;
+    padding:0 .5rem;
+    box-shadow: 0px 0px 11px 3px #000000;
+    grid-area:main
+}
+.edit, .delete{
+    padding:.6rem;
+    margin:.3rem;
+    max-height:3rem;
+    max-width:3rem;
+    align-self: center;
+    justify-self: center;
+}
+.adm_in{
+    width:min-content;
+}
+.logout,.deleteAll,.add{
+    vertical-align: center;
+    padding:.2rem;
+    min-width:7em
+}
+#accName{
+    text-align: center;
+    text-transform: uppercase;
+    border-bottom: 1px solid black;
+    grid-area: name;
+    display: block;
+}
+.sumDiv{
+    margin:0 auto;
+    padding:.5rem;
+    text-align: center;
+    grid-area: sum;
+    border-bottom:1px solid rgb(0, 0, 0);
+    box-shadow:1px 7px 7px -5px rgba(5, 105, 47, 0.801);
+    align-self: center;
+    justify-self: center;
+}
+h3{
+    margin:0 auto;
+}
+.edit_single{
+    color:black;
+    text-shadow: none;
+    font-size: .8em;
+    font-style:italic;
+}
+
+ /* grid crap beloew  */
+
+.edit{
+    background-color: rgba(27, 36, 117, 0.37);
+    grid-area: edt;
+    position: relative;
+}
+.saveEdit{
+    background-color: rgba(184, 135, 11, 0.664);
+    position: relative;
+    grid-area: edt;
+    margin:4.8px;
+    padding:9.6px;
+    color:white
+}
+.delete{
+    background-color: rgba(150, 0, 0, 0.527);
+    grid-area: del
+}
+.val{
+    grid-area: inp1;
+    align-self: center;
+    justify-self: center;
+    max-height:1.8rem;
+}
+.dtls{
+    grid-area: inp2;
+    align-self: center;
+    justify-self: center;
+    max-height:1.8rem;
+
+}
+.time{
+    grid-area: date;
+    padding:.3rem;
+    text-align: center;
+    font-style: italic
+}
+.edited{
+    grid-area: edtd;
+    text-align: center
+}
+.edited::nth-last-word(6),
+.edited::nth-last-word(7){
+    font-weight: bold}
+.main_data__single{
+    border-bottom: 1px solid rgb(0, 0, 0);
+    padding-bottom:1rem;
+    padding-top:1rem;
+    display:grid;
+    grid-column: repeat(4,1fr);
+    grid-row: repeat(4,2rem);
+    grid-template-areas: 
+    "inp1 inp1 inp2 inp2"
+    "date date date date"
+    "edtd edtd edtd edtd"
+    "edt edt del del"
+}
+.ain{
+    grid-area: amount;
+    align-self: center;
+    justify-self: center;
+}
+.din{
+    grid-area: details;
+    align-self: center;
+    justify-self: center;
+}
+.add{
+    min-width: 20rem;
+    grid-area: add;
+    height:2.5rem;
+
+}
+.main_data__inputs{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 2rem 1fr;
+    grid-template-areas: 
+    "amount details"
+    "add add"
+}
+.main_data__inputs input{
+    max-width:10rem;
+    min-width:9rem;
+}
+.logout{
+    grid-area: logout;
+    height:2.5rem;
+    margin:0
+}
+.deleteAll{
+    grid-area: dall;
+    height:2.5rem;
+    margin:0
+}
+.opts{
+    margin-top:.5rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: .3fr 1fr;
+    grid-row-gap: 1rem;
+    grid-column-gap: .8rem;
+    padding-bottom:1rem;
+    grid-template-areas: 
+    "sum sum"
+    "logout dall"
+}
+
+/* simple suser  styling */
+.main_data__single_user{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding:1rem 0;
+}
+.amountVal{
+    font-weight: bold;
+    font-size:1.4em;
+}
+.detVal{
+    font-size:1.2em;
+}
+.data_template__container_user{
+    height: 100%;
+    display: grid;
+    grid-template-rows: 1fr 7fr 1fr 1fr;
+    grid-template-areas: 
+    "name"
+    "main"
+    "sum"
+    "logout"
+}

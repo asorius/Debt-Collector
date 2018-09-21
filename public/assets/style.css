@@ -1,302 +1,252 @@
-*{
-    outline: none;
-    box-sizing: border-box
-}
-body{
-    font-family: 'Lustria', serif;
-    width: 100vw;
-    height: 100vh;
-    background-image: url("/assets/qbkls.png");
-    background-repeat: repeat;
-    color:rgb(0, 0, 0)
-}
-button{
-    font-family: 'Lustria', serif;
-    padding:1em;
-    font-size: 1.1em;
-    border-radius:.5rem;
-    background-color:rgba(5, 105, 47, 0.801);
-    color:rgb(255, 255, 255);
-    margin:1em;
-    min-width:10rem;
-    border:1px solid rgba(0, 0, 0, 0.61);
-    box-shadow:5px 5px 9px -2px #000000;
-    text-shadow: -1px 0 rgb(24, 24, 24), 0 1px rgb(24, 24, 24), 1px 0 rgb(24, 24, 24), 0 -1px rgb(24, 24, 24);
-
+textarea:focus, input:focus {
+  outline: none;
 }
 
-::placeholder{
-    color:rgb(0, 0, 0);
-    padding:.5em;
-    font-family: inherit
-}
-input {
-    background: transparent;
-    height: 1.8em;
-    border-radius:.5rem;
-    border:1px solid rgba(4, 85, 38, 0.76);
-    width:80%;
-    transition: all .3s ease-in-out;
-    background-color: rgba(8, 172, 76, 0.13);
-    padding-left:.8rem;
-
+.login_container {
+  display: grid;
+  align-self: center;
+  justify-self: center;
 }
 
-input:focus {
-    border: 2px solid black;
-    background-color:rgba(8, 172, 76, 0.562);
-    color:black;  
-    padding-left:.8rem;
-    outline: none
-}
-input:disabled{
-    background-color: rgba(0, 0, 0, 0.288);
-    color:rgb(0, 0, 0);
-    border-color:black;
-    padding-left:.8rem;
+body {
+  font: 100% "Lustria", serif;
+  color: #333;
+  background-image: url("/assets/qbkls.png");
+  box-sizing: border-box;
 }
 
-.container{
-    margin:0 auto;
-    width: 90vw;
-    height: 100vh;
-    display:flex;
-    flex-direction:column;
-    align-items: center;
+.container {
+  background-color: rgba(51, 46, 60, 0.2);
+  border: 1px solid rgba(54, 57, 70, 0.6);
+  border-radius: 0.5rem;
+  padding: 1rem;
+  margin: 3rem 1rem 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
-#slogan{
-    padding-top:2rem;
-    color:rgb(0, 0, 0);
-    padding-bottom: .5em;
-    border-bottom:1px solid rgb(0, 0, 0);
-    box-shadow:1px 7px 7px -5px rgba(5, 105, 47, 0.801);
+.container h1 {
+  text-align: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+}
+.container button {
+  margin-bottom: 0.5rem;
+  background-color: #302B27;
+  border: 1px solid rgba(54, 57, 70, 0.6);
+  border-radius: 0.2rem;
+  color: white;
+  width: 10rem;
+  padding: 0.5rem;
+}
+.container button:hover {
+  color: black;
+  background-color: #b4aaa2;
+}
+.container button:active {
+  color: black;
+  background-color: #b4aaa2;
 }
 
-/* /////// */
+.login_container {
+  max-with: 20rem;
+  width: 100%;
+  grid-template-rows: 1fr 9fr;
+  grid-auto-columns: 1fr 1fr;
+  grid-row-gap: 2rem;
+}
+.login_container .back {
+  width: 7em;
+}
+
+.loginForm {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+.loginForm label, .loginForm input, .loginForm button {
+  margin-top: 1rem;
+  width: 15em;
+  text-align: center;
+}
+
+.data_template__container_user {
+  max-height: 40rem;
+  width: 100%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.data_template__container_user .main_data {
+  max-width: 50rem;
+  overflow-y: scroll;
+  padding: 1rem;
+  margin: 0 auto;
+  color: white;
+  max-height: 20rem;
+  background-color: rgba(136, 150, 171, 0.7);
+  border: 1px solid rgba(54, 57, 70, 0.6);
+  border-radius: 0.5rem;
+}
+.data_template__container_user .logout {
+  margin: 0 auto;
+}
+
+.main_data__single_user {
+  display: block;
+  background-color: #302B27;
+  border: 1px solid rgba(245, 243, 245, 0.7);
+  border-radius: 0.5rem;
+  padding: 0.5rem 0;
+  margin-bottom: 0.5rem;
+}
+.main_data__single_user:nth-child(even) {
+  background-color: rgba(245, 243, 245, 0.7);
+  border: 1px solid rgba(54, 57, 70, 0.6);
+  border-radius: 0.5rem;
+  color: black;
+}
+.main_data__single_user .user_div {
+  padding: 0.1rem 0.5rem;
+  text-align: center;
+}
+.main_data__single_user .user_div .amountVal {
+  font-size: 1.2em;
+  font-weight: bold;
+}
+.main_data__single_user .user_div .detVal {
+  font-weight: bold;
+}
+
+.time {
+  font-style: italic;
+  font-size: 0.9em;
+}
+
+.edited {
+  font-size: 0.8em;
+  font-style: italic;
+}
+
+.data_template__container {
+  max-height: 40rem;
+  width: 100%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+}
+.data_template__container .main_data {
+  width: 100%;
+  grid-area: data;
+  max-height: 20rem;
+  overflow-y: scroll;
+  background-color: rgba(226, 229, 234, 0.7);
+  border: 1px solid rgba(54, 57, 70, 0.6);
+  border-radius: 0.5rem;
+}
+.data_template__container .main_data__inputs .ain, .data_template__container .main_data__inputs .din {
+  width: 40%;
+  margin-bottom: 0.5rem;
+}
+.data_template__container .main_data__inputs .add {
+  width: 75%;
+}
+.data_template__container .opts {
+  padding: 0;
+}
+.data_template__container .opts .sumDiv {
+  width: 100%;
+}
+.data_template__container .opts .logout, .data_template__container .opts .deleteAll {
+  width: 9em;
+  display: inline-block;
+}
+.data_template__container #accName {
+  grid-area: name;
+  margin: 0;
+}
+.data_template__container .main_data__single {
+  text-align: center;
+  width: 95%;
+  grid-area: data;
+  background-color: rgba(216, 225, 233, 0.6);
+  border: 1px solid rgba(54, 57, 70, 0.6);
+  border-radius: 0.5rem;
+  display: grid;
+  justify-items: center;
+  align-self: center;
+  grid-template-columns: repeat(auto, 1fr);
+  grid-template-rows: repeat(auto, 1fr);
+  grid-template-areas: "value  details" "time time" "etime etime" "edit del";
+  padding-top: 0.5rem;
+  margin: 0.5rem auto;
+}
+.data_template__container .main_data__single .val {
+  grid-area: value;
+  max-width: 7em;
+}
+.data_template__container .main_data__single .dtls {
+  max-width: 7em;
+  grid-area: details;
+}
+.data_template__container .main_data__single .time {
+  grid-area: time;
+  padding: 0.1rem;
+}
+.data_template__container .main_data__single .edited {
+  grid-area: etime;
+  padding: 0.1rem;
+}
+.data_template__container .main_data__single .edit, .data_template__container .main_data__single .saveEdit {
+  grid-area: edit;
+  width: 5em;
+  font-size: 0.8em;
+}
+.data_template__container .main_data__single .saveEdit {
+  background-color: rgba(5, 105, 47, 0.801);
+  font-size: 0.8em;
+}
+.data_template__container .main_data__single .delete {
+  font-size: 0.8em;
+  grid-area: del;
+  width: 5em;
+  background: rgba(150, 0, 0, 0.527);
+}
+.data_template__container .main_data__single .delete:hover {
+  color: rgba(150, 0, 0, 0.527);
+  background: rgba(150, 0, 0, 0.127);
+}
+
 .form {
-    height: 100%;
-    width: 100%
+  width: 100%;
 }
-.back{
-    padding: .3rem;
-}
-.create{
-    display:flex;
-    height: 50%;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
-    width: 100%
-
-}
-.login_container{
-    height: 100%;
-    width: 100%;
-}
-.loginForm{
-    padding-top: 2rem;
-    display:flex;
-    height: 75%;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-}
-.loginForm label{
-    padding:.8em
-}
-.connectBtn{
-    background-color: rgba(5, 105, 47, 0.801);;
-    border:1px solid black;
+.form .back {
+  width: 7em;
 }
 
-.createBtn{
-    background-color: rgba(5, 105, 47, 0.801);
-    border:1px solid black
-}
-.main_data{
-    display: flex;
-    flex-direction: column;
-    max-height:22em;
-    overflow-y: scroll;
-    background-color:rgba(104, 104, 104, 0.096);
-    border-radius: .5rem;
-    padding:0 .5rem;
-    box-shadow: 0px 0px 11px 3px #000000;
-    grid-area:main
-}
-.edit, .delete{
-    padding:.6rem;
-    margin:.3rem;
-    max-height:3rem;
-    max-width:3rem;
-    align-self: center;
-    justify-self: center;
-}
-.adm_in{
-    width:min-content;
-}
-.logout,.deleteAll,.add{
-    vertical-align: center;
-    padding:.2rem;
-    min-width:7em
-}
-#accName{
-    text-align: center;
-    text-transform: uppercase;
-    border-bottom: 1px solid black;
-    grid-area: name;
-    display: block;
-}
-.sumDiv{
-    margin:0 auto;
-    padding:.5rem;
-    text-align: center;
-    grid-area: sum;
-    border-bottom:1px solid rgb(0, 0, 0);
-    box-shadow:1px 7px 7px -5px rgba(5, 105, 47, 0.801);
-    align-self: center;
-    justify-self: center;
-}
-h3{
-    margin:0 auto;
-}
-.edit_single{
-    color:black;
-    text-shadow: none;
-    font-size: .8em;
-    font-style:italic;
+.create {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  height: 15rem;
 }
 
- /* grid crap beloew  */
-
-.edit{
-    background-color: rgba(27, 36, 117, 0.37);
-    grid-area: edt;
-    position: relative;
+input {
+  border-radius: 0.2rem;
+  padding-left: 1em;
+  border: 1px solid black;
 }
-.saveEdit{
-    background-color: rgba(184, 135, 11, 0.664);
-    position: relative;
-    grid-area: edt;
-    margin:4.8px;
-    padding:9.6px;
-    color:white
+input:disabled {
+  background: rgba(79, 93, 117, 0.5);
+  border: 1px solid rgba(79, 93, 117, 0.6);
 }
-.delete{
-    background-color: rgba(150, 0, 0, 0.527);
-    grid-area: del
-}
-.val{
-    grid-area: inp1;
-    align-self: center;
-    justify-self: center;
-    max-height:1.8rem;
-}
-.dtls{
-    grid-area: inp2;
-    align-self: center;
-    justify-self: center;
-    max-height:1.8rem;
-
-}
-.time{
-    grid-area: date;
-    padding:.3rem;
-    text-align: center;
-    font-style: italic
-}
-.edited{
-    grid-area: edtd;
-    text-align: center
-}
-.edited::nth-last-word(6),
-.edited::nth-last-word(7){
-    font-weight: bold}
-.main_data__single{
-    border-bottom: 1px solid rgb(0, 0, 0);
-    padding-bottom:1rem;
-    padding-top:1rem;
-    display:grid;
-    grid-column: repeat(4,1fr);
-    grid-row: repeat(4,2rem);
-    grid-template-areas: 
-    "inp1 inp1 inp2 inp2"
-    "date date date date"
-    "edtd edtd edtd edtd"
-    "edt edt del del"
-}
-.ain{
-    grid-area: amount;
-    align-self: center;
-    justify-self: center;
-}
-.din{
-    grid-area: details;
-    align-self: center;
-    justify-self: center;
-}
-.add{
-    min-width: 20rem;
-    grid-area: add;
-    height:2.5rem;
-
-}
-.main_data__inputs{
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 2rem 1fr;
-    grid-template-areas: 
-    "amount details"
-    "add add"
-}
-.main_data__inputs input{
-    max-width:10rem;
-    min-width:9rem;
-}
-.logout{
-    grid-area: logout;
-    height:2.5rem;
-    margin:0
-}
-.deleteAll{
-    grid-area: dall;
-    height:2.5rem;
-    margin:0
-}
-.opts{
-    margin-top:.5rem;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: .3fr 1fr;
-    grid-row-gap: 1rem;
-    grid-column-gap: .8rem;
-    grid-template-areas: 
-    "sum sum"
-    "logout dall"
+input:focus {
+  background: rgba(5, 105, 47, 0.401);
+  border: 1px solid black;
 }
 
-/* simple suser  styling */
-.main_data__single_user{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding:1rem 0;
-}
-.amountVal{
-    font-weight: bold;
-    font-size:1.4em;
-}
-.detVal{
-    font-size:1.2em;
-}
-.data_template__container_user{
-    height: 100%;
-    display: grid;
-    grid-template-rows: 1fr 7fr 1fr 1fr;
-    grid-template-areas: 
-    "name"
-    "main"
-    "sum"
-    "logout"
-}
+/*# sourceMappingURL=style.css.map */

@@ -105,7 +105,7 @@ app.patch('/datas/add',authenticate,async(req,res)=>{
         const id=req.id
         const body=req.body
         const token=req.token
-        body.date=moment().format("MMMM Do YYYY, h:mm a")
+        body.date=moment().format("MMM Do YYYY, h:mm:ss a")
         const resp=await Collection.findOneAndUpdate({_id:id},{$push:{data:body}},{new:true})
         await resp.save()
         res.header('x-auth',token).send({
@@ -126,7 +126,7 @@ app.patch('/datas/edit',authenticate,async(req,res)=>{
         const id=req.id
         const body=req.body
         const token=req.token
-        let editDate=moment().format("MMMM Do YYYY, h:mm")
+        let editDate=moment().format("MMM Do YYYY, h:mm:ss a")
         const collectionToEdit=await Collection.findById(id)
         let edited=false
         const newdata=collectionToEdit.data.map((el)=>{

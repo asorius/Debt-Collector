@@ -1,0 +1,216 @@
+//  sass --watch public/assets/main.sass:public/assets/style.css
+
+$font-stack:    'Lustria', serif
+$primary-color: #333
+$background-body: url("/assets/qbkls.png")
+$dark-transparent-background: rgba(51,46,60, .2)
+$darker-border: 1px solid rgba(54,57,70,.6)
+$btn-color: #302B27
+$btn-text: white
+$single-background: rgba(136,150,171,.7)
+
+textarea:focus,input:focus
+  outline: none
+
+
+=border-box( $background, $border, $radius )
+  background-color: $background
+  border: $border
+  border-radius: $radius
+
+%grid-center
+  display: grid
+  align-self: center
+  justify-self: center
+
+body
+  font: 100% $font-stack
+  color: $primary-color
+  background-image: $background-body
+  box-sizing: border-box
+
+.container
+  +border-box($dark-transparent-background, $darker-border, .5rem)
+  padding: 1rem
+  margin: 3rem 1rem 0
+  display: flex
+  flex-direction: column
+  align-items: center
+  h1
+    text-align: center
+    margin-bottom: 2rem
+    padding-bottom: 1rem
+
+
+  button
+    margin-bottom: .5rem
+    +border-box($btn-color, $darker-border, .2rem)
+    color: $btn-text
+    width: 10rem
+    padding:.5rem
+    &:hover
+      color: darken($btn-text, 100%)
+      background-color: lighten($btn-color,50%)
+    &:active
+      color: darken($btn-text, 100%)
+      background-color: lighten($btn-color,50%)
+
+.login_container
+  max-with:20rem
+  width: 100%
+  @extend %grid-center
+  grid-template-rows: 1fr 9fr
+  grid-auto-columns: 1fr 1fr
+  grid-row-gap: 2rem
+  .back
+    width:7em
+
+.loginForm
+  display: flex
+  flex-direction: column
+  justify-content: flex-start
+  align-items: center
+  label,input,button
+    margin-top:1rem
+    width: 15em
+    text-align: center
+
+  // user styles----------------------------
+.data_template__container_user
+  max-height:40rem
+  width:100%
+  text-align: center
+  display: flex
+  flex-direction: column
+  justify-content: center
+  .main_data
+    max-width:50rem
+    overflow-y: scroll
+    padding: 1rem
+    margin:0 auto
+    color: white
+    max-height:20rem
+    +border-box($single-background, $darker-border, .5rem)
+  .logout
+    margin:0 auto
+
+.main_data__single_user
+  display: block
+  +border-box($btn-color, 1px solid rgba(245,243,245,.7), .5rem)
+  padding:.5rem 0
+  margin-bottom: .5rem
+  &:nth-child(even) 
+    +border-box(rgba(245,243,245,.7), $darker-border, .5rem)
+    color: black
+  .user_div
+    padding:.1rem .5rem
+    text-align: center
+    .amountVal
+      font-size: 1.2em
+      font-weight: bold
+    .detVal
+      font-weight: bold
+
+
+.time
+  font-style: italic
+  font-size: .9em
+.edited
+  font-size: .8em
+  font-style: italic
+
+  // admin--------------------------------------
+.data_template__container
+  max-height:40rem
+  width:100%
+  text-align: center
+  display: flex
+  flex-direction: column
+  .main_data
+    width:100%
+    grid-area: data
+    max-height:20rem
+    overflow-y: scroll
+    +border-box(lighten($single-background,30%), $darker-border, .5rem)
+  .main_data__inputs
+    .ain,.din
+      width: 40%
+      margin-bottom: .5rem
+    .add
+      width:75%
+  .opts
+    padding:0
+    .sumDiv
+      width:100%
+    .logout,.deleteAll
+      width:9em
+      display: inline-block
+  #accName
+    grid-area: name
+    margin:0
+  .main_data__single
+    text-align: center
+    width:95%
+    grid-area: data
+    +border-box(rgba(216,225,233,.6), $darker-border, .5rem)
+    display: grid
+    justify-items: center
+    align-self: center
+    grid-template-columns: repeat(auto,1fr)
+    grid-template-rows: repeat(auto,1fr)
+    grid-template-areas: "value  details" "time time" "etime etime" "edit del"
+    padding-top:.5rem
+    margin: .5rem auto
+    .val
+      grid-area: value
+      max-width:7em
+    .dtls
+      max-width:7em
+      grid-area: details
+    .time
+      grid-area: time
+      padding:.1rem
+    .edited
+      grid-area: etime
+      padding:.1rem
+    .edit,.saveEdit
+      grid-area: edit
+      width:5em
+      font-size: .8em
+
+    .saveEdit
+      background-color: rgba(5, 105, 47, 0.801)
+      font-size: .8em
+    .delete
+      font-size: .8em
+      grid-area: del
+      width:5em
+      background: rgba(150, 0, 0, 0.527)
+      &:hover
+        color: rgba(150, 0, 0, 0.527)
+        background: rgba(150, 0, 0, 0.127)
+.form
+  width:100%
+  .back
+    width:7em
+.create
+  width: 100%
+  display: flex
+  flex-direction: column
+  justify-content: space-around
+  align-items: center
+  height: 15rem
+  
+input 
+  border-radius: .2rem
+  padding-left: 1em
+  border:1px solid black
+  &:disabled
+    background: rgba(79,93,117,.5)
+    border:1px solid rgba(79,93,117,.6)
+  &:focus 
+    background: rgba(5, 105, 47, 0.401)
+    border:1px solid black
+
+
+
