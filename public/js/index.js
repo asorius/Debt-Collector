@@ -1,4 +1,4 @@
-// import {} from './partials/admin'
+
 const socket=io()
 
 const postDataToCreateNewCollection= async (data)=>{
@@ -207,6 +207,8 @@ document.querySelector('.container').addEventListener('click',(e)=>{
         e.target.parentElement.innerHTML=template}
         
     }
+    
+
     if(e.target.className==='connectBtn'){
      //get values from form and login
         
