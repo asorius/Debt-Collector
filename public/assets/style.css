@@ -204,6 +204,13 @@ body {
   width: 5em;
   font-size: 0.8em;
 }
+.data_template__container .main_data__single .edit {
+  background-color: rgba(5, 105, 47, 0.201);
+}
+.data_template__container .main_data__single .edit:hover {
+  background-color: rgba(5, 105, 47, 0.501);
+  color: black;
+}
 .data_template__container .main_data__single .saveEdit {
   background-color: rgba(5, 105, 47, 0.801);
   font-size: 0.8em;
@@ -247,6 +254,64 @@ input:disabled {
 input:focus {
   background: rgba(5, 105, 47, 0.401);
   border: 1px solid black;
+}
+
+@media only screen and (min-width: 640px) {
+  .container {
+    width: auto;
+    min-width: 50%;
+    max-width: 90%;
+    margin: 5rem auto;
+  }
+
+  .main_data {
+    width: 80%;
+  }
+  .main_data .main_data__single_user {
+    display: flex;
+    flex-direction: row;
+    padding-top: 0.5em;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .data_template__container {
+    width: 100%;
+  }
+  .data_template__container .main_data {
+    width: 100%;
+    max-height: 21rem;
+  }
+  .data_template__container .main_data__inputs {
+    display: flex;
+    justify-content: space-around;
+  }
+  .data_template__container .main_data__inputs .ain, .data_template__container .main_data__inputs .din {
+    width: 30%;
+  }
+  .data_template__container .main_data__inputs .add {
+    width: 9em;
+  }
+  .data_template__container .main_data__single {
+    width: 95%;
+    padding-left: 0.4rem;
+    padding-right: 0.4rem;
+    grid-template-columns: repeat(10, 1fr);
+    grid-column-gap: 0.5rem;
+    grid-template-rows: 3rem;
+    grid-template-areas: " value value details details time time etime etime edit del";
+  }
+  .data_template__container .main_data__single .val {
+    height: 2rem;
+  }
+  .data_template__container .main_data__single .dtls {
+    height: 2rem;
+  }
+}
+@media only screen and (min-width: 1023px) {
+  .container {
+    width: 45rem;
+  }
 }
 
 /*# sourceMappingURL=style.css.map */

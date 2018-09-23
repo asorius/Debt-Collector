@@ -183,6 +183,20 @@ app.delete('/delete',authenticate,async(req,res)=>{
     }
 })
 
+app.delete('/deletesingles',authenticate,async(req,res)=>{
+    try{
+        const id=req.id        
+        const updatedCollection=await Collection.findByIdAndUpdate(id,{$set:{data:[]}},{new:true})
+        await updatedCollection.save()
+        let deleted=false
+        if(updatedCollection.data.length===0){
+            deleted=true}
+        res.send({deleted})
+            
+        }catch{
+            res.status(400).send({deleted:false,error:'error'})
+        }
+})
 
     
 

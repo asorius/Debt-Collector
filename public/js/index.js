@@ -102,6 +102,20 @@ const deleteCollection=async (token)=>{
         console.log(e)
     }
 }
+
+const deleteSingles=async (token)=>{
+    try{
+        const response=await fetch('/deletesingles',{
+        method:'DELETE',
+        headers:{'x-auth':token}
+        })
+    const returnData= await response.json()
+    return returnData
+    }catch(e){
+        console.log(e)
+    }
+}
+
 const editData=async (token,findDate,amount,details)=>{
     try{
         let data={amount,details,findDate}
@@ -145,14 +159,27 @@ document.querySelector('.container').addEventListener('click',(e)=>{
             let startingTemplate
             let inputTemplate
             if(access==='admin'){
-                if(dataArray.length===0){sum=''}
                 startingTemplate=document.querySelector('#data_page_overall_template_admin').innerHTML
                 inputTemplate=document.querySelector('#single_add_template_admin').innerHTML
+                if(dataArray.length===0){
+                    sum='0'
+                    const html=Mustache.render(startingTemplate,{name:cname,sum:sum})
+                    document.querySelector('.container').innerHTML=html
+                    document.querySelector('.main_data').remove()
+                    return
+                }
             }
             if(access==='user'){
-                if(dataArray.length===0){sum=''}
                 startingTemplate=document.querySelector('#data_page_overall_template_user').innerHTML
                 inputTemplate=document.querySelector('#single_add_template').innerHTML
+                if(dataArray.length===0){
+                    sum='0'
+                    const html=Mustache.render(startingTemplate,{name:cname,sum:sum})
+                    document.querySelector('.container').innerHTML=html
+                    document.querySelector('.main_data').remove()
+                    return
+                }
+
             }
             
             const html=Mustache.render(startingTemplate,{name:cname,sum:sum})
@@ -194,10 +221,19 @@ document.querySelector('.container').addEventListener('click',(e)=>{
             window.localStorage.setItem('tokenKey', dataObj.token);
             if(access==='admin'){
                 //admin
-                if(dataArray.length===0){sum=''}
                 const startingTemplate=document.querySelector('#data_page_overall_template_admin').innerHTML
+               //if no data remove main data to not show border useless
+                if(dataArray.length===0){
+                    sum='0'
+                    const html=Mustache.render(startingTemplate,{name:cname,sum:sum})
+                    document.querySelector('.container').innerHTML=html
+                    document.querySelector('.main_data').remove()
+                    return
+                }
+                //
                 const html=Mustache.render(startingTemplate,{name:cname,sum:sum})
                 document.querySelector('.container').innerHTML=html
+                
 
                 const inputTemplate=document.querySelector('#single_add_template_admin').innerHTML
                 
@@ -212,8 +248,18 @@ document.querySelector('.container').addEventListener('click',(e)=>{
             }else if(access==='user'){
               //user
 
-              if(dataArray.length===0){sum=''}
                 const startingTemplate=document.querySelector('#data_page_overall_template_user').innerHTML
+
+               //if no data remove main data to not show border useless
+                if(dataArray.length===0){
+                    sum='0'
+                    const html=Mustache.render(startingTemplate,{name:cname,sum:sum})
+                    document.querySelector('.container').innerHTML=html
+                    document.querySelector('.main_data').remove()
+                    return
+                }
+
+                //
                 const html=Mustache.render(startingTemplate,{name:cname,sum:sum})
                 document.querySelector('.container').innerHTML=html
 
@@ -283,7 +329,12 @@ document.querySelector('.container').addEventListener('click',(e)=>{
         let inputTemplate=document.querySelector('#single_add_template_admin').innerHTML
        
         const generatedTemplate=Mustache.render(inputTemplate,{amount:lastDataItemInArray.amount,details:lastDataItemInArray.details,time:lastDataItemInArray.date})
-        
+        let maindata=document.querySelector('.main_data')
+        if(maindata===null){
+            let nnew=document.createElement('div')
+            nnew.className='main_data'
+            document.querySelector('.data_template__container').insertBefore(nnew,document.querySelector('.opts'))
+        }
         document.querySelector('.main_data').innerHTML+=generatedTemplate
         document.querySelector('.sumDiv').innerHTML=`<h3>In total: ${collection.sum} &#163;.</h3>`
         })  
@@ -299,6 +350,21 @@ document.querySelector('.container').addEventListener('click',(e)=>{
             }
         })
     }
+
+//delle all singles
+    if(e.target.className==='deleteSingles'){
+        let token=window.localStorage.getItem('tokenKey');
+        deleteSingles(token).then((res)=>{
+            if(res.deleted){
+                // let list= Array.from(document.querySelector('.main_data').children)
+                // list.forEach(child=>child.remove())
+                document.querySelector('.main_data').remove()
+                document.querySelector('.sumDiv').innerHTML=`<h3>In total: 0 &#163;.</h3>`
+            }
+        })
+        
+    }
+
     //delle whole
     if(e.target.className==='deleteAll'){
         let token=window.localStorage.getItem('tokenKey');
