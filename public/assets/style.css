@@ -12,11 +12,15 @@ body {
   font: 100% "Lustria", serif;
   color: #333;
   background-image: url("/assets/cash.jpg");
+  background-repeat: no-repeat;
   box-sizing: border-box;
+  padding-bottom: 1rem;
+  height: 100%;
 }
 
 .container {
-  background-color: rgba(51, 46, 60, 0.2);
+  position: relative;
+  background-color: transparent;
   border: 1px solid rgba(54, 57, 70, 0.6);
   border-radius: 0.5rem;
   padding: 1rem;
@@ -24,6 +28,19 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+.container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(54, 57, 70, 0.6);
+  border-radius: 0.5rem;
+  filter: blur(1px);
+  z-index: -1;
 }
 .container h1 {
   text-align: center;
@@ -84,19 +101,24 @@ body {
   overflow-y: scroll;
   padding: 1rem;
   margin: 0 auto;
-  color: white;
   max-height: 20rem;
-  background-color: rgba(136, 150, 171, 0.7);
+  background-color: rgba(0, 0, 0, 0.3);
   border: 1px solid rgba(54, 57, 70, 0.6);
   border-radius: 0.5rem;
 }
 .data_template__container_user .logout {
   margin: 0 auto;
 }
+.data_template__container_user .sumDiv {
+  color: #edebe9;
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+  letter-spacing: 0.1em;
+}
 
 .main_data__single_user {
+  color: #333333;
   display: block;
-  background-color: #302B27;
+  background-color: rgba(229, 228, 196, 0.5);
   border: 1px solid rgba(245, 243, 245, 0.7);
   border-radius: 0.5rem;
   padding: 0.5rem 0;
@@ -106,7 +128,6 @@ body {
   background-color: rgba(245, 243, 245, 0.7);
   border: 1px solid rgba(54, 57, 70, 0.6);
   border-radius: 0.5rem;
-  color: black;
 }
 .main_data__single_user .user_div {
   padding: 0.1rem 0.5rem;
@@ -142,7 +163,7 @@ body {
   grid-area: data;
   max-height: 20rem;
   overflow-y: scroll;
-  background-color: rgba(226, 229, 234, 0.7);
+  background-color: rgba(77, 77, 77, 0.3);
   border: 1px solid rgba(54, 57, 70, 0.6);
   border-radius: 0.5rem;
 }
@@ -158,6 +179,9 @@ body {
 }
 .data_template__container .opts .sumDiv {
   width: 100%;
+  color: #edebe9;
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+  letter-spacing: 0.1em;
 }
 .data_template__container .opts .logout, .data_template__container .opts .deleteAll {
   width: 9em;
@@ -171,7 +195,7 @@ body {
   text-align: center;
   width: 95%;
   grid-area: data;
-  background-color: rgba(216, 225, 233, 0.6);
+  background-color: rgba(216, 225, 233, 0.75);
   border: 1px solid rgba(54, 57, 70, 0.6);
   border-radius: 0.5rem;
   display: grid;
@@ -205,7 +229,8 @@ body {
   font-size: 0.8em;
 }
 .data_template__container .main_data__single .edit {
-  background-color: rgba(5, 105, 47, 0.201);
+  background-color: rgba(5, 105, 47, 0.801);
+  color: white;
 }
 .data_template__container .main_data__single .edit:hover {
   background-color: rgba(5, 105, 47, 0.501);
@@ -219,11 +244,12 @@ body {
   font-size: 0.8em;
   grid-area: del;
   width: 5em;
-  background: rgba(150, 0, 0, 0.527);
+  background: rgba(150, 0, 0, 0.827);
+  color: white;
 }
 .data_template__container .main_data__single .delete:hover {
-  color: rgba(150, 0, 0, 0.527);
-  background: rgba(150, 0, 0, 0.127);
+  color: black;
+  background: rgba(150, 0, 0, 0.527);
 }
 
 .form {
@@ -246,13 +272,15 @@ input {
   border-radius: 0.2rem;
   padding-left: 1em;
   border: 1px solid black;
+  background: rgba(214, 212, 160, 0.5);
 }
 input:disabled {
-  background: rgba(79, 93, 117, 0.5);
+  background: rgba(83, 81, 36, 0.5);
   border: 1px solid rgba(79, 93, 117, 0.6);
 }
 input:focus {
-  background: rgba(5, 105, 47, 0.401);
+  color: white;
+  background: rgba(0, 0, 0, 0.5);
   border: 1px solid black;
 }
 
@@ -308,9 +336,14 @@ input:focus {
     height: 2rem;
   }
 }
-@media only screen and (min-width: 1023px) {
+@media only screen and (min-width: 1020px) {
   .container {
     width: 45rem;
+  }
+}
+@media only screen and (min-width: 1080px) {
+  body {
+    background-size: cover;
   }
 }
 
