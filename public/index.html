@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,6 +11,7 @@
     <link href="https://fonts.googleapis.com/css?family=Indie+Flower|Lustria" rel="stylesheet">
     <title>Debt Collector</title>
 </head>
+
 <body>
     <div class="container">
         <h1 id='slogan'>Debt Collector</h1>
@@ -17,82 +19,9 @@
         <button class='login'>Login</button>
     </div>
 
-    <script id='new_collection_template' type='text/template'>
-        <div class="form form_create">
-            <button class='back'>back</button>
-            <form action="" class="create">
-                <label for="collection_name">Account Name:</label>
-                <input type="text" id="collection_name" placeholder='Min 8 characters..' autocomplete='off'>
-                <label for="collection_pass">User Password:</label>
-                <input type="password" name="collection_pass" id="collection_pass" placeholder='Min 6 characters..'>
-                <label for="collection_pass__admin" >Admin Password:</label>
-                <input type="password" name="collection_pass__admin" id="collection_pass__admin" placeholder='Min 6 characters..'>
-                <button class='createBtn'>Create</button>
-            </form>
-        </div>
-    </script>
-    <script id='data_page_overall_template_user' type='text/template'>
-        <div class='data_template__container_user'>
-            <h1 id='accName'>{{name}}'s account</h1>
-            <div class="main_data"></div>
-            <div class='sumDiv'><h3>In total: {{sum}} &#163;.</h3></div>
-            <button class='logout'>Logout</button>            
-        </div>
-    </script>
-
-    <script id='data_page_overall_template_admin' type='text/template'>
-        <div class='data_template__container'>
-            <h1 id='accName'>{{name}}'s account</h1>
-            <div class="main_data__inputs">
-                <input class='ain' type="text" placeholder='Amount' autocomplete='off'>
-                <input class='din' type="text" placeholder='Details' autocomplete='off'>
-                <button class="add">Submit</button>
-            </div>
-            <div class="main_data">
-                
-            </div>
-            <div class='opts'>
-            <div class='sumDiv'><h3>In total: {{sum}} &#163;.</h3></div>
-                <button class='logout'>Logout</button> 
-                <button class='deleteSingles'>Delete All</button> 
-                <button class='deleteAll'>Delete Account</button>            
-            </div>
-
-
-        </div>
-    </script>
-
-    <script id='login_template' type='text/template'>
-        <div class="login_container">
-            <button class='back'>back</button>
-            <form class="loginForm">
-                <label for="collection_name">Account Name:</label>
-                <input type="text" id="collection_name">
-                <label for="collection_pass">Password:</label>
-                <input type="password" name="collection_pass" id="collection_pass">
-                <button class='connectBtn'>Connect to Account</button>
-            </form>
-        </div>
-    </script>
-    <script id='single_add_template' type='text/template'>
-        <div class="main_data__single_user">
-            <div class='val user_div'><span class='amountVal'>{{amount}}</span> <span>&#163;</span>. <span class='detVal'>{{details}}</span>.</div>
-            <div class="time user_div">At {{time}}.</div>
-            <div class='edited user_div'>{{edited}}</div>
-        </div>
-    </script>
-    <script id='single_add_template_admin' type='text/template'>
-        <div class="main_data__single">
-            <input class='val adm_in' type="text" value='{{amount}}' disabled>
-            <input class='dtls adm_in' type='text' value='{{details}}' disabled>
-            <div class="time adm_div">{{time}}</div>
-            <div class='edited adm_div'>{{edited}}</div>
-            <button class='edit'>Edit</button>
-            <button class='delete'>Delete</button>
-        </div>
-    </script>
     <script src="/socket.io/socket.io.js"></script>
-    <script src="./assets/mustache.js"></script>
+    <script src="./js/mustache.js"></script>
     <script src="./js/index.js"></script>
 </body>
+
 </html>
